@@ -2,7 +2,7 @@
 
 #### Intro
 
-An implement of *Aho-Corasick algorithm* in golang and supports Both Chinese and English. To improve the performance and reduce memory usage, the program uses *Double Array Trie* instead of common *Linked List Trie*. In the benchmark, it is 10 times faster than the most popular AC algorithm implement in golang @ github and tenth of its memory usage. You can find more information in the benchmark parts.
+An implement of *Aho-Corasick algorithm* in golang and supports Both Chinese and English. To improve the performance and reduce memory usage, the program uses *Double Array Trie* instead of common *Linked List Trie*. In the benchmark, `it is 10 times faster than the most popular AC algorithm implement in golang @ github and tenth of its memory usage`. You can find more information in the benchmark parts.
 
 Besides Multi-Pattern Search using AC algorithm, the program also provide exact match search using Double Array Trie
 
