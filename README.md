@@ -94,9 +94,9 @@ To Run Benchmark, go to test dir
 *Dictionary* contains `153,151` words, *Text* contains `777,277` words
 
 	====================================================================
-	cost(million sec)	memory usage(MBytes)
+								cost(million sec)	memory usage(MBytes)
 	cloudflare/ahocorasick		28926				1911M
-	anknown/ahocorasick		1814				155M
+	anknown/ahocorasick			1814				155M
 	====================================================================
 
 * For English Test
@@ -106,5 +106,5 @@ To Run Benchmark, go to test dir
 	====================================================================
 								time(million sec)	memory usage(MBytes)
 	cloudflare/ahocorasick		19835				1340M
-	anknown/ahocorasick		1619				203M
+	anknown/ahocorasick			1619				203M
 	====================================================================
