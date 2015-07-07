@@ -14,7 +14,7 @@ the wikipedia link is: [aho-corasick algorithm](https://en.wikipedia.org/wiki/Ah
 
 #### Usage
 
-**MultiPatternSearch Example**
+**Multi-Pattern Search Example**
 
 	package main
 
@@ -96,7 +96,7 @@ To Run Benchmark, go to test dir
 	====================================================================
 								cost(million sec)	memory usage(MBytes)
 	cloudflare/ahocorasick		28926				1911M
-	hanshinan/goahocorasick		1814				155M
+	anknown/ahocorasick		1814				155M
 	====================================================================
 
 * For English Test
@@ -106,5 +106,5 @@ To Run Benchmark, go to test dir
 	====================================================================
 								time(million sec)	memory usage(MBytes)
 	cloudflare/ahocorasick		19835				1340M
-	hanshinan/goahocorasick		1619				203M
+	anknown/ahocorasick		1619				203M
 	====================================================================
