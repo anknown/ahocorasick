@@ -90,7 +90,7 @@ func TestExactSearchEnglish(t *testing.T) {
 	m.Build(keywords)
 
 	for _, k := range keywords {
-		if m.ExactSearch(k) != nil {
+		if m.ExactSearch(k) == nil {
 			t.Error("exact search chinese failed")
 		}
 	}
@@ -107,7 +107,7 @@ func TestExactSearchChinese(t *testing.T) {
 	m.Build(keywords)
 
 	for _, k := range keywords {
-		if m.ExactSearch(k) != nil {
+		if m.ExactSearch(k) == nil {
 			t.Error("exact search chinese failed")
 		}
 	}
