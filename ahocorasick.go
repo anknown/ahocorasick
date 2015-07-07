@@ -147,7 +147,7 @@ func (m *Machine) MultiPatternSearch(content []rune) [](*Term) {
 }
 
 func (m *Machine) ExactSearch(content []rune) [](*Term) {
-	if !m.trie.ExactMatchSearch(content, 0) {
+	if m.trie.ExactMatchSearch(content, 0) {
 		t := new(Term)
 		t.Word = content
 		t.Pos = 0
