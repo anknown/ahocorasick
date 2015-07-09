@@ -20,6 +20,10 @@ type Term struct {
 }
 
 func (m *Machine) Build(keywords [][]rune) (err error) {
+	if len(keywords) == 0 {
+		return fmt.Errorf("empty keywords")
+	}
+
 	d := new(godarts.Darts)
 
 	trie := new(godarts.LinkedListTrie)
