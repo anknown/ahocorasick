@@ -76,11 +76,13 @@ the wikipedia link is: [aho-corasick algorithm](https://en.wikipedia.org/wiki/Ah
         }
 	}
 
+I do not provide read file API because I think your dict may coming form other source
+
 #### Benchmark
 
 **Multi-Pattern Search**
 
-compare with *cloudflare/ahocorasick* which receive most star and forks in the implement which is written in golang
+compare with `cloudflare/ahocorasick` who receives most stars and forks in all the implement written in golang
 
 To Run Benchmark, go to test dir 
 
@@ -95,8 +97,8 @@ To Run Benchmark, go to test dir
 
 	====================================================================
 								cost(million sec)	memory usage(MBytes)
-	cloudflare/ahocorasick		28926				1911M
-	anknown/ahocorasick			1814				155M
+	cloudflare/ahocorasick		28926				1911
+	anknown/ahocorasick			1814				155
 	====================================================================
 
 * For English Test
@@ -105,6 +107,6 @@ To Run Benchmark, go to test dir
 
 	====================================================================
 								time(million sec)	memory usage(MBytes)
-	cloudflare/ahocorasick		19835				1340M
-	anknown/ahocorasick			1619				203M
+	cloudflare/ahocorasick		19835				1340
+	anknown/ahocorasick			1619				203
 	====================================================================
