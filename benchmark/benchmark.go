@@ -11,8 +11,8 @@ import (
 )
 
 import (
+	"github.com/anknown/ahocorasick"
 	"github.com/cloudflare/ahocorasick"
-	"gitlab.baidu.com/hanshinan/ahocorasick"
 )
 
 const CHN_DICT_FILE = "./cn/dictionary.txt"

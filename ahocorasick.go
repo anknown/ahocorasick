@@ -128,7 +128,7 @@ func (m *Machine) setF(inState, outState int) {
 	m.failure[inState] = outState
 }
 
-func (m *Machine) MultiPatternSearch(content []rune) [](*Term) {
+func (m *Machine) MultiPatternSearch(content []rune, returnImmediately bool) [](*Term) {
 	terms := make([](*Term), 0)
 
 	state := ROOT_STATE
@@ -145,6 +145,9 @@ func (m *Machine) MultiPatternSearch(content []rune) [](*Term) {
 					term.Pos = pos - len(word) + 1
 					term.Word = word
 					terms = append(terms, term)
+					if returnImmediately {
+						return terms
+					}
 				}
 			}
 		}
