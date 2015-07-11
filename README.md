@@ -28,6 +28,10 @@ the wikipedia link is: [aho-corasick algorithm](https://en.wikipedia.org/wiki/Ah
 	    "time"	
 	 )
 
+	import (
+		"github.com/anknown/ahocorasick"
+	)
+
 	func ReadRunes(filename string) ([][]rune, error) {
 	    dict := [][]rune{}
 
@@ -70,7 +74,7 @@ the wikipedia link is: [aho-corasick algorithm](https://en.wikipedia.org/wiki/Ah
 	        return
 	    }
 	    
-	    terms := m.MultiPatternSearch(contentRune)
+	    terms := m.MultiPatternSearch(contentRune, false)
         for _, t := range terms {
             fmt.Printf("%d %s\n", t.Pos, string(t.Word))
         }
