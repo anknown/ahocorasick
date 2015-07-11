@@ -25,7 +25,6 @@ the wikipedia link is: [aho-corasick algorithm](https://en.wikipedia.org/wiki/Ah
 	    "io"
 	    "io/ioutil"
 	    "os"
-	    "time"	
 	 )
 
 	import (
