@@ -104,6 +104,9 @@ func (m *Machine) g(inState int, input rune) (outState int) {
 
 	t := inState + int(input) + godarts.ROOT_NODE_BASE
 	if t >= len(m.trie.Base) {
+		if inState == ROOT_STATE {
+			return ROOT_STATE
+		}
 		return FAIL_STATE
 	}
 	if inState == m.trie.Check[t] {
