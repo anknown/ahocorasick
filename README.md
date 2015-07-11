@@ -23,7 +23,6 @@ the wikipedia link is: [aho-corasick algorithm](https://en.wikipedia.org/wiki/Ah
 	    "bytes"
 	    "fmt"
 	    "io"
-	    "io/ioutil"
 	    "os"
 	 )
 
@@ -53,30 +52,24 @@ the wikipedia link is: [aho-corasick algorithm](https://en.wikipedia.org/wiki/Ah
 	}
 
 	func main() {
-	    dict, err := ReadRunes(your_dict_files)
+	    dict, err := ReadRunes("your_dict_files")
 	    if err != nil {
 	        fmt.Println(err)
 	        return
 	    }
-
-	    content, err := ioutil.ReadFile(your_text)
-	    if err != nil {
-	        fmt.Println(err)
-	        return
-	    }
-
-	    contentRune := bytes.Runes([]byte(content))
-    
+	
+	    content := []rune("your text")
+	
 	    m := new(goahocorasick.Machine)
 	    if err := m.Build(dict); err != nil {
 	        fmt.Println(err)
 	        return
 	    }
-	    
-	    terms := m.MultiPatternSearch(contentRune, false)
-        for _, t := range terms {
-            fmt.Printf("%d %s\n", t.Pos, string(t.Word))
-        }
+	
+	    terms := m.MultiPatternSearch(content, false)
+	    for _, t := range terms {
+	        fmt.Printf("%d %s\n", t.Pos, string(t.Word))
+	    }
 	}
 
 I do not provide read file API because I think your dict may coming form other source
