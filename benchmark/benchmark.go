@@ -63,7 +63,9 @@ func ReadRunes(filename string) ([][]rune, error) {
 }
 
 func TestAEnglish() {
-	fmt.Println("Start to Load... ")
+	fmt.Println("** English Benchmark of cloudflare/ahocorasick **")
+	fmt.Println("-------------------------------------------------")
+	fmt.Println("=> Start to Load... ")
 	start := time.Now()
 	dict, err := ReadBytes(ENG_DICT_FILE)
 	if err != nil {
@@ -79,7 +81,7 @@ func TestAEnglish() {
 	end := time.Now()
 	fmt.Printf("load file cost:%d(ms)\n", (end.UnixNano()-start.UnixNano())/(1000*1000))
 
-	fmt.Println("Start to Search... ")
+	fmt.Println("=> Start to Search... ")
 	start = time.Now()
 	m := ahocorasick.NewMatcher(dict)
 
@@ -97,7 +99,9 @@ func TestAEnglish() {
 }
 
 func TestAChinese() {
-	fmt.Println("Start to Load... ")
+	fmt.Println("\n** Chinese Benchmark of cloudflare/ahocorasick **")
+	fmt.Println("---------------------------------------------------")
+	fmt.Println("=> Start to Load... ")
 	start := time.Now()
 	dict, err := ReadBytes(CHN_DICT_FILE)
 	if err != nil {
@@ -113,7 +117,7 @@ func TestAChinese() {
 	end := time.Now()
 	fmt.Printf("load file cost:%d(ms)\n", (end.UnixNano()-start.UnixNano())/(1000*1000))
 
-	fmt.Println("Start to Search... ")
+	fmt.Println("=> Start to Search... ")
 	start = time.Now()
 	m := ahocorasick.NewMatcher(dict)
 
@@ -131,7 +135,9 @@ func TestAChinese() {
 }
 
 func TestBEnglish() {
-	fmt.Println("Start to Load... ")
+	fmt.Println("\n** English Benchmark of anknown/ahocorasick **")
+	fmt.Println("------------------------------------------------")
+	fmt.Println("=> Start to Load... ")
 	start := time.Now()
 	dict, err := ReadRunes(ENG_DICT_FILE)
 	if err != nil {
@@ -149,7 +155,7 @@ func TestBEnglish() {
 	end := time.Now()
 	fmt.Printf("load file cost:%d(ms)\n", (end.UnixNano()-start.UnixNano())/(1000*1000))
 
-	fmt.Println("Start to Search... ")
+	fmt.Println("=> Start to Search... ")
 	start = time.Now()
 	m := new(goahocorasick.Machine)
 	if err := m.Build(dict); err != nil {
@@ -157,7 +163,7 @@ func TestBEnglish() {
 		return
 	}
 	//terms := m.Search(contentRune)
-	m.MultiPatternSearch(contentRune)
+	m.MultiPatternSearch(contentRune, false)
 	end = time.Now()
 	fmt.Printf("search cost:%d(ms)\n", (end.UnixNano()-start.UnixNano())/(1000*1000))
 	/*
@@ -168,7 +174,9 @@ func TestBEnglish() {
 }
 
 func TestBChinese() {
-	fmt.Println("Start to Load... ")
+	fmt.Println("\n** Chinese Benchmark of anknown/ahocorasick **")
+	fmt.Println("------------------------------------------------")
+	fmt.Println("=> Start to Load... ")
 	start := time.Now()
 	dict, err := ReadRunes(CHN_DICT_FILE)
 	if err != nil {
@@ -186,7 +194,7 @@ func TestBChinese() {
 	end := time.Now()
 	fmt.Printf("load file cost:%d(ms)\n", (end.UnixNano()-start.UnixNano())/(1000*1000))
 
-	fmt.Println("Start to Search... ")
+	fmt.Println("=> Start to Search... ")
 	start = time.Now()
 	m := new(goahocorasick.Machine)
 	if err := m.Build(dict); err != nil {
@@ -194,7 +202,7 @@ func TestBChinese() {
 		return
 	}
 	//terms := m.Search(contentRune)
-	m.MultiPatternSearch(contentRune)
+	m.MultiPatternSearch(contentRune, false)
 	end = time.Now()
 	fmt.Printf("search cost:%d(ms)\n", (end.UnixNano()-start.UnixNano())/(1000*1000))
 	/*
