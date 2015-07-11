@@ -2,6 +2,9 @@ package goahocorasick
 
 import (
 	"fmt"
+)
+
+import (
 	"gitlab.baidu.com/hanshinan/godarts"
 )
 
