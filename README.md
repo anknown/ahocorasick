@@ -106,3 +106,7 @@ To Run Benchmark, go to test dir
 	cloudflare/ahocorasick		19835				1340
 	anknown/ahocorasick			1619				203
 	====================================================================
+
+#### License
+
+MIT License
