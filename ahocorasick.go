@@ -5,7 +5,7 @@ import (
 )
 
 import (
-	"gitlab.baidu.com/hanshinan/godarts"
+	"github.com/anknown/darts"
 )
 
 const FAIL_STATE = -1
