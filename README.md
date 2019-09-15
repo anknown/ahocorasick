@@ -74,7 +74,7 @@ the wikipedia link is: [aho-corasick algorithm](https://en.wikipedia.org/wiki/Ah
 	    }
 	}
 
-I do not provide read file API because I think your dict may coming form other source
+I do not provide read file API because I suppose that your dict might coming from another source
 
 #### Benchmark
 
