@@ -3,6 +3,7 @@ package goahocorasick
 import (
 	"bufio"
 	"bytes"
+	"encoding/gob"
 	"fmt"
 	"io"
 	"os"
@@ -111,5 +112,37 @@ func TestExactSearchChinese(t *testing.T) {
 			t.Error("exact search chinese failed")
 		}
 	}
+	fmt.Printf("Test total:%d words\n\n", len(keywords))
+}
+
+func TestEncodeAndDecodeGob(t *testing.T) {
+	keywords, err := Read("test_keywords_eng")
+	if err != nil {
+		t.Error(err)
+	}
+	m := new(Machine)
+	m.Build(keywords)
+
+	var b bytes.Buffer
+	encoder := gob.NewEncoder(&b)
+	err = encoder.Encode(m)
+
+	fmt.Println("==================================")
+	fmt.Println(b)
+	fmt.Println("==================================")
+
+	var newMachine Machine
+	reader := bufio.NewReader(&b)
+	decoder := gob.NewDecoder(reader)
+	decoder.Decode(&newMachine)
+
+	for _, k := range keywords {
+		if newMachine.ExactSearch(k) == nil {
+			t.Error("exact search english after reloading failed")
+		}
+	}
+
+	fmt.Println(m)
+	fmt.Println(newMachine)
 	fmt.Printf("Test total:%d words\n\n", len(keywords))
 }
