@@ -1,11 +1,11 @@
 package goahocorasick
 
 import (
+	"bytes"
+	"encoding/gob"
 	"fmt"
-)
 
-import (
-	"github.com/anknown/darts"
+	godarts "github.com/anknown/darts"
 )
 
 const FAIL_STATE = -1
@@ -15,6 +15,12 @@ type Machine struct {
 	trie    *godarts.DoubleArrayTrie
 	failure []int
 	output  map[int]([][]rune)
+}
+
+type ExportableMachine struct {
+	Trie    *godarts.DoubleArrayTrie
+	Failure []int
+	Output  map[int]([][]rune)
 }
 
 type Term struct {
@@ -76,6 +82,36 @@ func (m *Machine) Build(keywords [][]rune) (err error) {
 		queue = append(queue, node.Children...)
 		queue = queue[1:]
 	}
+
+	return nil
+}
+
+func (m *Machine) GobEncode() ([]byte, error) {
+	var exportable ExportableMachine
+	exportable.Trie = m.trie
+	exportable.Failure = m.failure
+	exportable.Output = m.output
+	var b bytes.Buffer
+	encoder := gob.NewEncoder(&b)
+	if err := encoder.Encode(exportable); err != nil {
+		return nil, fmt.Errorf("encoding ahocorasick machine: %v", err)
+	}
+
+	return b.Bytes(), nil
+}
+
+func (m *Machine) GobDecode(b []byte) error {
+	var exportable ExportableMachine
+
+	reader := bytes.NewReader(b)
+	decoder := gob.NewDecoder(reader)
+	if err := decoder.Decode(&exportable); err != nil {
+		return fmt.Errorf("decoding ahocorasick machine: %v", err)
+	}
+
+	m.trie = exportable.Trie
+	m.failure = exportable.Failure
+	m.output = exportable.Output
 
 	return nil
 }
