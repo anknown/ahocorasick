@@ -2,10 +2,8 @@ package goahocorasick
 
 import (
 	"fmt"
-)
 
-import (
-	"github.com/anknown/darts"
+	godarts "github.com/anknown/darts"
 )
 
 const FAIL_STATE = -1
@@ -135,21 +133,27 @@ func (m *Machine) setF(inState, outState int) {
 	m.failure[inState] = outState
 }
 
-func (m *Machine) MultiPatternSearch(content []rune, returnImmediately bool) [](*Term) {
+func (m *Machine) MultiPatternSearch(content []rune, returnImmediately bool, n_noncontinue_chars int) [](*Term) {
 	terms := make([](*Term), 0)
 
 	state := ROOT_STATE
+	noncontion_char_size := 0
 	for pos, c := range content {
 	start:
 		if m.g(state, c) == FAIL_STATE {
+			if noncontion_char_size < n_noncontinue_chars {
+				noncontion_char_size += 1
+				continue
+			}
 			state = m.f(state)
 			goto start
 		} else {
 			state = m.g(state, c)
+			noncontion_char_size = 0
 			if val, ok := m.output[state]; ok != false {
 				for _, word := range val {
 					term := new(Term)
-					term.Pos = pos - len(word) + 1
+					term.Pos = pos - len(word) + 1 - noncontion_char_size
 					term.Word = word
 					terms = append(terms, term)
 					if returnImmediately {
