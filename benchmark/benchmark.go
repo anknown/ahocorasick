@@ -8,9 +8,7 @@ import (
 	"io/ioutil"
 	"os"
 	"time"
-)
 
-import (
 	"github.com/anknown/ahocorasick"
 	"github.com/cloudflare/ahocorasick"
 )
@@ -163,7 +161,7 @@ func TestBEnglish() {
 		return
 	}
 	//terms := m.Search(contentRune)
-	m.MultiPatternSearch(contentRune, false)
+	m.MultiPatternSearch(contentRune, false, 0)
 	end = time.Now()
 	fmt.Printf("search cost:%d(ms)\n", (end.UnixNano()-start.UnixNano())/(1000*1000))
 	/*
@@ -202,7 +200,7 @@ func TestBChinese() {
 		return
 	}
 	//terms := m.Search(contentRune)
-	m.MultiPatternSearch(contentRune, false)
+	m.MultiPatternSearch(contentRune, false, 0)
 	end = time.Now()
 	fmt.Printf("search cost:%d(ms)\n", (end.UnixNano()-start.UnixNano())/(1000*1000))
 	/*

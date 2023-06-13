@@ -54,7 +54,7 @@ func TestMultiPatternSearchEnglish(t *testing.T) {
 	//m.PrintOutput()
 
 	content := []rune("ushers")
-	terms := m.MultiPatternSearch(content, false)
+	terms := m.MultiPatternSearch(content, false, 0)
 	for _, term := range terms {
 		fmt.Printf("find %s @%d in %s\n", string(term.Word), term.Pos, string(content))
 	}
@@ -73,10 +73,50 @@ func TestMultiPatternSearchChinese(t *testing.T) {
 	//m.PrintOutput()
 
 	content := []rune("你不会想到阿拉伯人会踢出阿根廷风格的足球更何况是埃及风格")
-	terms := m.MultiPatternSearch(content, false)
+	terms := m.MultiPatternSearch(content, false, 0)
 	for _, term := range terms {
 		fmt.Printf("find %s @%d in %s\n", string(term.Word), term.Pos, string(content))
 	}
+	fmt.Printf("\n")
+}
+
+func TestMultiPatternSearchChineseWithNoncontinue(t *testing.T) {
+	fmt.Printf("===> Noncontinue MultiPattern Search For Chinese \n")
+	keywords, err := Read("test_keywords_chn")
+	if err != nil {
+		t.Error(err)
+	}
+	m := new(Machine)
+	m.Build(keywords)
+	//m.PrintFailure()
+	//m.PrintOutput()
+
+	content := []rune("阿拉1伯埃32及")
+	terms := m.MultiPatternSearch(content, false, 3)
+	for _, term := range terms {
+		fmt.Printf("noncontinue size 3: find %s @%d in %s\n", string(term.Word), term.Pos, string(content))
+	}
+    if len(terms) != 2 {
+        t.Error("invalid search")
+    }
+
+	content = []rune("阿拉1伯埃32及阿根廷")
+	terms = m.MultiPatternSearch(content, false, 0)
+	for _, term := range terms {
+		fmt.Printf("noncontinue size 0: find %s @%d in %s\n", string(term.Word), term.Pos, string(content))
+	}
+    if len(terms) != 1 {
+        t.Error("invalid search")
+    }
+
+	content = []rune("阿拉1伯埃32及3阿2根q廷")
+	terms = m.MultiPatternSearch(content, false, 1)
+	for _, term := range terms {
+		fmt.Printf("noncontinue size 1: find %s @%d in %s\n", string(term.Word), term.Pos, string(content))
+	}
+    if len(terms) != 2 {
+        t.Error("invalid search")
+    }
 	fmt.Printf("\n")
 }
 
