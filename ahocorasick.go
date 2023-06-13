@@ -75,6 +75,7 @@ func (m *Machine) Build(keywords [][]rune) (err error) {
 		queue = queue[1:]
 	}
 
+
 	return nil
 }
 
@@ -143,13 +144,12 @@ func (m *Machine) MultiPatternSearch(content []rune, returnImmediately bool, n_n
 		if m.g(state, c) == FAIL_STATE {
 			if noncontion_char_size < n_noncontinue_chars {
 				noncontion_char_size += 1
-				continue
+                continue
 			}
 			state = m.f(state)
 			goto start
 		} else {
-			state = m.g(state, c)
-			noncontion_char_size = 0
+            state = m.g(state, c)
 			if val, ok := m.output[state]; ok != false {
 				for _, word := range val {
 					term := new(Term)
@@ -160,7 +160,10 @@ func (m *Machine) MultiPatternSearch(content []rune, returnImmediately bool, n_n
 						return terms
 					}
 				}
+			    state = m.f(state)
+                goto start
 			}
+			noncontion_char_size = 0
 		}
 	}
 
