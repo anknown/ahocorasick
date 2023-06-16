@@ -142,7 +142,7 @@ func (m *Machine) MultiPatternSearch(content []rune, returnImmediately bool, n_n
 	for pos, c := range content {
 	start:
 		if m.g(state, c) == FAIL_STATE {
-			if noncontion_char_size < n_noncontinue_chars {
+			if noncontion_char_size < n_noncontinue_chars && state != ROOT_STATE {
 				noncontion_char_size += 1
 				state = prev_state
 				continue
@@ -164,7 +164,7 @@ func (m *Machine) MultiPatternSearch(content []rune, returnImmediately bool, n_n
 					}
 				}
 				state = m.f(state)
-				goto start
+				continue
 			}
 		}
 	}

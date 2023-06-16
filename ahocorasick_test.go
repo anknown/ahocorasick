@@ -118,6 +118,15 @@ func TestMultiPatternSearchChineseWithNoncontinue(t *testing.T) {
         t.Error("invalid search")
     }
 	fmt.Printf("\n")
+
+	content = []rune("去阿拉伯")
+	terms = m.MultiPatternSearch(content, false, 3)
+	for _, term := range terms {
+		fmt.Printf("noncontinue size 333: find %s @%d in %s\n", string(term.Word), term.Pos, string(content))
+	}
+    if len(terms) != 1 {
+        t.Error("invalid search")
+    }
 }
 
 func TestExactSearchEnglish(t *testing.T) {
