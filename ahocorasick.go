@@ -138,16 +138,41 @@ func (m *Machine) MultiPatternSearch(content []rune, returnImmediately bool, n_n
 
 	state := ROOT_STATE
 	prev_state := state
+	reset_pos := 0
+	has_noncontinue := false
 	noncontion_char_size := 0
-	for pos, c := range content {
+	pos := 0
+	for pos < len(content) {
 	start:
+		c := content[pos]
+		if !has_noncontinue {
+			reset_pos = pos
+		}
 		if m.g(state, c) == FAIL_STATE {
+			// if enable noncontinue matcher, then try to max matcher
 			if noncontion_char_size < n_noncontinue_chars && state != ROOT_STATE {
+				has_noncontinue = true
 				noncontion_char_size += 1
 				state = prev_state
+				pos += 1
+				if pos >= len(content) {
+					state = ROOT_STATE
+					pos = reset_pos
+					has_noncontinue = false
+					goto start
+				}
 				continue
 			}
+			// if failed, then try back to reset pos
+			if reset_pos > 0 {
+				state = ROOT_STATE
+				pos = reset_pos
+				noncontion_char_size = 1
+				has_noncontinue = false
+				goto start
+			}
 			state = m.f(state)
+			pos += 1
 			goto start
 		} else {
 			state = m.g(state, c)
@@ -163,10 +188,17 @@ func (m *Machine) MultiPatternSearch(content []rune, returnImmediately bool, n_n
 						return terms
 					}
 				}
+				if reset_pos > 0 {
+					state = ROOT_STATE
+					pos = reset_pos
+					has_noncontinue = false
+					goto start
+				}
 				state = m.f(state)
 				continue
 			}
 		}
+		pos += 1
 	}
 
 	return terms

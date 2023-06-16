@@ -94,39 +94,48 @@ func TestMultiPatternSearchChineseWithNoncontinue(t *testing.T) {
 	content := []rune("阿拉1伯埃32及")
 	terms := m.MultiPatternSearch(content, false, 3)
 	for _, term := range terms {
-		fmt.Printf("noncontinue size 3: find %s @%d in %s\n", string(term.Word), term.Pos, string(content))
+		fmt.Printf("find %s @%d in %s\n", string(term.Word), term.Pos, string(content))
 	}
-    if len(terms) != 2 {
-        t.Error("invalid search")
-    }
+	if len(terms) != 2 {
+		t.Error("invalid search")
+	}
 
 	content = []rune("阿拉1伯埃32及阿根廷")
 	terms = m.MultiPatternSearch(content, false, 0)
 	for _, term := range terms {
-		fmt.Printf("noncontinue size 0: find %s @%d in %s\n", string(term.Word), term.Pos, string(content))
+		fmt.Printf("find %s @%d in %s\n", string(term.Word), term.Pos, string(content))
 	}
-    if len(terms) != 1 {
-        t.Error("invalid search")
-    }
+	if len(terms) != 1 {
+		t.Error("invalid search")
+	}
 
 	content = []rune("阿拉1伯埃32及3阿2根q廷")
 	terms = m.MultiPatternSearch(content, false, 1)
 	for _, term := range terms {
-		fmt.Printf("noncontinue size 1: find %s @%d in %s\n", string(term.Word), term.Pos, string(content))
+		fmt.Printf("find %s @%d in %s\n", string(term.Word), term.Pos, string(content))
 	}
-    if len(terms) != 2 {
-        t.Error("invalid search")
-    }
+	if len(terms) != 2 {
+		t.Error("invalid search")
+	}
 	fmt.Printf("\n")
 
-	content = []rune("去阿拉伯")
+	content = []rune("你阿拉伯")
 	terms = m.MultiPatternSearch(content, false, 3)
 	for _, term := range terms {
-		fmt.Printf("noncontinue size 333: find %s @%d in %s\n", string(term.Word), term.Pos, string(content))
+		fmt.Printf("find %s @%d in %s\n", string(term.Word), term.Pos, string(content))
 	}
-    if len(terms) != 1 {
-        t.Error("invalid search")
-    }
+	if len(terms) != 1 {
+		t.Error("invalid search")
+	}
+
+	content = []rune("x阿拉伯")
+	terms = m.MultiPatternSearch(content, false, 3)
+	for _, term := range terms {
+		fmt.Printf("find %s @%d in %s\n", string(term.Word), term.Pos, string(content))
+	}
+	if len(terms) != 1 {
+		t.Error("invalid search")
+	}
 }
 
 func TestExactSearchEnglish(t *testing.T) {
