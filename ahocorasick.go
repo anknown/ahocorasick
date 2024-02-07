@@ -2,10 +2,8 @@ package goahocorasick
 
 import (
 	"fmt"
-)
 
-import (
-	"github.com/anknown/darts"
+	godarts "github.com/anknown/darts"
 )
 
 const FAIL_STATE = -1
@@ -29,7 +27,7 @@ func (m *Machine) Build(keywords [][]rune) (err error) {
 
 	d := new(godarts.Darts)
 
-	trie := new(godarts.LinkedListTrie)
+	var trie *godarts.LinkedListTrie
 	m.trie, trie, err = d.Build(keywords)
 	if err != nil {
 		return err
@@ -64,11 +62,9 @@ func (m *Machine) Build(keywords [][]rune) (err error) {
 				inState = m.f(inState)
 				goto set_state
 			}
-			if _, ok := m.output[outState]; ok != false {
-				copyOutState := make([][]rune, 0)
-				for _, o := range m.output[outState] {
-					copyOutState = append(copyOutState, o)
-				}
+			if _, ok := m.output[outState]; ok {
+				copyOutState := make([][]rune, 0, len(m.output[outState]))
+				copyOutState = append(copyOutState, m.output[outState]...)
 				m.output[n.Base] = append(copyOutState, m.output[n.Base]...)
 			}
 			m.setF(n.Base, outState)
@@ -146,7 +142,7 @@ func (m *Machine) MultiPatternSearch(content []rune, returnImmediately bool) [](
 			goto start
 		} else {
 			state = m.g(state, c)
-			if val, ok := m.output[state]; ok != false {
+			if val, ok := m.output[state]; ok {
 				for _, word := range val {
 					term := new(Term)
 					term.Pos = pos - len(word) + 1
